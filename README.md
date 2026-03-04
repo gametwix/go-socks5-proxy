@@ -9,10 +9,10 @@ SOCKS5-прокси на Go с:
 ## Архитектура
 
 Проект реализован в стиле clean architecture:
-- `internal/domain` — доменные модели и контракты;
-- `internal/usecase` — бизнес-логика;
-- `internal/adapters` — адаптеры (Redis);
-- `internal/transport` — входные транспорты (SOCKS5, HTTP);
+- `src/domain` — доменные модели и контракты;
+- `src/usecase` — бизнес-логика;
+- `src/adapters` — адаптеры (Redis);
+- `src/transport` — входные транспорты (SOCKS5, HTTP);
 - `src/main.go` — composition root.
 
 ## Redis-схема (совместима с nskondratev)
