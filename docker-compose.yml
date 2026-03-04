@@ -1,0 +1,35 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: socks5-proxy-app
+    restart: unless-stopped
+    depends_on:
+      - redis
+    environment:
+      SOCKS5_ADDR: ":1080"
+      API_ADDR: ":8080"
+      REDIS_ADDR: "redis:6379"
+      REDIS_DB: "0"
+      REDIS_AUTH_USER_KEY: "user_auth"
+      REDIS_USAGE_KEY: "user_usage_data"
+      REDIS_AUTH_DATE_KEY: "user_auth_date"
+      REDIS_ENABLED_KEY: "user_enabled"
+      DIAL_TIMEOUT_SECONDS: "10"
+    ports:
+      - "1080:1080"
+      - "8080:8080"
+
+  redis:
+    image: redis:8-alpine
+    container_name: socks5-proxy-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+
+volumes:
+  redis_data:
